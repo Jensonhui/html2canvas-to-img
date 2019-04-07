@@ -6,12 +6,12 @@
 
 相关配置：http://html2canvas.hertzen.com/configuration
 
----
+
 
 ## 2 ) .  canvas-range.html
 原生JS可调节字体大小，颜色截图
 
----
+
 
 ## 3 ) .  canvas-waterMark.html
 原生JS水印截图
