@@ -1,0 +1,63 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CANVAS添加水印截图—Jensonhui's Blog</title>
+</head>
+<style>
+    *{padding: 0;margin: 0;}
+    ul{list-style: none;}
+    body{position: relative;}
+    .box{width: 350px;height:auto;padding: 2px;overflow: hidden;box-sizing: border-box;border: 1px solid #ccc;}
+    .box .img_box img{width: 100%;}
+    #createdImg{position: absolute;top: 0;left: 50%;}
+</style>
+<body>
+    <div class="box" id="box">
+        <div class="img_box"><img id="fileimg" src="./th.jpg" alt=""></div>
+    </div>
+    <div><canvas id="mycanvas"></canvas></div>
+    <div><img id="createdImg" src="" alt=""></div>
+    <button id="creat_img" onclick="textToImg();">生成图片</button>
+
+
+    <script>
+        function $(id) { return document.getElementById(id); }
+
+        function textToImg() {
+            //创建文本
+            var txtArry = ['hello world','jensonhui.top','www.wc3shoole.com'];
+            // var emptyArr = [];
+
+            // 创建canvas
+            var canvas = $('mycanvas');
+            canvas.width = canvas.width;
+            canvas.height = canvas.height;
+            var context = canvas.getContext('2d');
+            context.clearRect(0, 0, canvas.width, canvas.height);
+
+            //绘制图片
+            var starImg = $('fileimg');
+            context.drawImage(starImg, 0, 0,canvas.width,200);
+            
+            if( txtArry.length > 0 ){
+                var len  = txtArry.length;
+                // 设置样式
+                context.fillStyle = '#000';
+                context.font = 16 + 'px sans-serif';
+                context.textBaseline = 'top'; 
+                // 绘制文本
+                for (var i = 0; i < len; i++) {
+                    // 设置随机数
+                    // var temp = parseInt(Math.random()*(len-i));
+                    // emptyArr.push(txtArry[temp]);
+                    // txtArry.splice(temp,1);
+                    context.fillText(txtArry[i], 10, 20 * i);
+                }
+            }
+        }
+
+    </script>
+</body>
+</html>
