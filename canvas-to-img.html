@@ -1,0 +1,78 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CAVCAS网页截图—Jensonhui's Blog</title>
+    <script src="./jquery.min.js"></script>
+    <script src="./html2canvas.js"></script>
+    <script src="./html2Image.js"></script>
+</head>
+<style>
+    *{padding: 0;margin: 0;}
+    ul{list-style: none;}
+    body{position: relative;}
+    .box{width: 350px;height:auto;padding: 2px;overflow: hidden;box-sizing: border-box;border: 1px solid #ccc;}
+    .box .img_box img{width: 100%;}
+    .box .txt_box{height: auto; font-size: 16px;color: #333;line-height: 25px;}
+</style>
+<body>
+    <div class="box" id="capture">
+        <div class="img_box"><img id="fileimg" src="https://jensonhui.top/usr/themes/single/img/5b17082ad9e5d.png" alt=""></div>
+        <ul class="txt_box" id="textBox"></ul>
+    </div>
+    <button id="creat_img" onclick="textToImg();">生成图片</button>
+    <script>
+        function $(id) {return document.getElementById(id)}
+
+        // 随机分配文本
+        function getVal() {
+            var txtArry = ['123','1234','12345','123456','1234567'];
+            var emptyArr = [];
+            for (let i = 0,len = txtArry.length; i < len; i++) {
+                var temp = parseInt(Math.random()*(len-i));
+                emptyArr.push(txtArry[temp]);
+                txtArry.splice(temp,1);
+            }
+            creatLi(emptyArr);
+        }
+
+        // 创建li元素
+        function creatLi(arry) {
+            var ulBox = $('textBox'); 
+            for(var i = 0; i< arry.length; i++){
+                var li = document.createElement('li');
+                li.innerText = arry[i];
+                ulBox.appendChild(li);
+            }
+        }
+        
+        // 清空li元素
+        function removeLi() {
+            var ulBox =  $('textBox');
+            var lis = ulBox.children;
+            for(var i = lis.length-1; i >=0; i--){
+                ulBox.removeChild(lis[i]);
+            }
+            getVal();
+        }
+
+        // 生成图片
+        var flag = true;
+        function textToImg () {
+            if (flag == true) {
+                removeLi();
+                html2canvas(document.querySelector("#capture"),{allowTaint:true}).then(canvas => {
+                    document.body.appendChild(canvas)
+                });
+                flag = false;
+                setTimeout(function() { flag = true },5000); 
+            } else {
+                alert('您的操作太频繁了，5秒后再试试吧！');
+            }
+        }
+
+        window.onload = getVal;
+    </script>
+</body>
+</html>
